@@ -2,6 +2,10 @@
 
 ### **Ask Me Anything About Yoga**
 
+👉 Watch Demo 
+[ Wellness RAG Micro-App ](https://www.veed.io/view/d558b831-b275-4724-964c-590563b01580)
+
+
 ---
 
 ## 📌 Project Overview
