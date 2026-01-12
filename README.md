@@ -1,19 +1,21 @@
 # 🧘 Wellness RAG Micro-App
 
-### “Ask Me Anything About Yoga”
+### **Ask Me Anything About Yoga**
+
+---
 
 ## 📌 Project Overview
 
-This project is a **full-stack AI micro-application** that answers yoga and wellness-related questions using a **Retrieval-Augmented Generation (RAG)** pipeline.
+This project is a **full-stack AI micro-application** that answers yoga and wellness-related questions using a **Retrieval-Augmented Generation (RAG)** architecture.
 
-The system is designed with a **safety-first mindset**, ensuring that potentially risky yoga queries (e.g., pregnancy, medical conditions) are handled responsibly with appropriate warnings and non-medical guidance.
+The system is designed with a **safety-first approach**, ensuring that potentially risky yoga queries (such as pregnancy or medical conditions) are handled responsibly with clear warnings and non-medical guidance.
 
-The main focus areas are:
+The primary focus areas are:
 
-* RAG design (chunking, embeddings, retrieval)
+* RAG system design (chunking, retrieval, prompt construction)
 * Backend architecture and safety logic
-* Data logging and analysis using MongoDB
-* Clear UI display of sources and safety warnings
+* Clean API structure
+* Clear UI presentation of answers, sources, and safety warnings
 
 ---
 
@@ -27,14 +29,11 @@ The main focus areas are:
         |
         ├── Safety Check Module
         ├── RAG Pipeline
-        │     ├── Chunking
-        │     ├── Embeddings
-        │     ├── Vector Search (FAISS)
+        │     ├── Chunking Logic
+        │     ├── Retrieval Interface
         │     └── Prompt Construction
         |
-        ├── Local LLM (Ollama / llama.cpp)
-        |
-        └── MongoDB (Query & Feedback Logs)
+        └── Response Formatter (Answer + Sources + Safety Flags)
 ```
 
 ---
@@ -43,52 +42,57 @@ The main focus areas are:
 
 ### 1. Frontend (React – Web)
 
-Minimal and clean UI focused on clarity:
+A minimal and clean UI focused on clarity:
 
 * Text input: **“Ask anything about yoga”**
 * Ask button
-* Answer display block
-* **Sources used** section (retrieved knowledge chunks)
-* Safety warning (red box) when applicable
-* Loading indicator
-* Optional feedback buttons 👍 / 👎
+* AI answer display block
+* **Sources used** section (retrieved knowledge IDs)
+* Safety warning displayed prominently for sensitive queries
+* Loading indicator during API calls
 
 ---
 
 ### 2. Knowledge Base
 
-* 20–50 yoga-related articles
+* Yoga-related articles stored locally as JSON
 * Topics covered:
 
   * Yoga asanas
   * Benefits of yoga
   * Contraindications
-  * Pranayama (breathing techniques)
-  * Beginner vs advanced practices
-* Content is **self-written or summarized from public sources**
-* Stored locally as JSON / Markdown files
+  * Breathing practices (pranayama)
+  * Beginner vs advanced poses
+* Content is self-written or summarized from public sources
+* Designed to scale to 20–50 articles
 
 ---
 
-### 3. RAG (Retrieval-Augmented Generation) Pipeline
+## 🧠 RAG (Retrieval-Augmented Generation) Design
 
-**Step-by-step flow:**
+This implementation establishes a **clean, modular RAG architecture** that clearly separates chunking, retrieval, and prompt construction.
+
+The system demonstrates the **end-to-end RAG data flow** using a lightweight retrieval layer, while being intentionally structured to support seamless integration of:
+
+* FAISS-based local vector search
+* Sentence-transformer embeddings (e.g., `all-MiniLM-L6-v2`)
+* Local LLMs (Ollama / llama.cpp compatible)
+
+### RAG Flow
 
 1. **Chunking**
 
-   * Chunk size: 300–500 tokens
+   * Target chunk size: 300–500 tokens
    * Overlap: 50–100 tokens
 
 2. **Embedding**
 
    * Local sentence-transformer model
-   * Example: `all-MiniLM-L6-v2`
-   * No paid APIs used
+   * No paid or external APIs
 
 3. **Vector Store**
 
    * FAISS (local filesystem)
-   * Persistent index
 
 4. **Retrieval**
 
@@ -97,70 +101,39 @@ Minimal and clean UI focused on clarity:
 5. **Prompt Construction**
 
    * System prompt: *“You are a safety-first yoga assistant”*
-   * Inject retrieved context
-   * Prevent hallucinations by answering only from context
-
-6. **Generation**
-
-   * Local LLM via Ollama / llama.cpp
-   * Example models: `mistral`, `llama3`
+   * Retrieved context injected into the prompt
+   * Responses constrained to provided context
 
 ---
 
-### 4. Safety Layer 
+## 🚨 Safety Layer
 
 Yoga can be risky for certain individuals.
-A backend safety filter is implemented.
+A backend **safety filtering module** is implemented to handle such cases responsibly.
 
-#### Safety Detection
+### Safety Detection
 
-Simple keyword-based heuristic:
+Keyword-based heuristic covering:
 
-* Pregnancy: `pregnant`, `trimester`
-* Medical conditions: `hernia`, `glaucoma`, `high blood pressure`, `recent surgery`
+* Pregnancy-related terms: `pregnant`, `pregnancy`, `trimester`
+* Medical conditions: `hernia`, `glaucoma`, `high blood pressure`, `bp`, `surgery`
 
-#### Behavior When Unsafe
+### Behavior When Unsafe
 
-* `isUnsafe = true` logged in MongoDB
-* UI shows **red warning box**
-* Response:
+When a query is flagged as unsafe:
+
+* `isUnsafe = true` is returned by the backend
+* The UI displays a **clear red warning message**
+* The response:
 
   * Avoids medical diagnosis
-  * Suggests safer alternatives
-  * Advises professional supervision
+  * Suggests safer alternatives where applicable
+  * Advises consultation with a qualified professional
 
 **Example Safety Message:**
 
-> “Your question touches on an area that may be risky without personalized guidance. Instead of inversions, consider gentle supine poses and breathing practices. Please consult a doctor or certified yoga therapist.”
-
----
-
-### 5. MongoDB Logging
-
-Every query is logged for analysis.
-
-#### Query Log Schema
-
-```json
-{
-  "query": "User question",
-  "retrievedChunks": ["Chunk 1", "Chunk 2"],
-  "answer": "Generated response",
-  "isUnsafe": true,
-  "safetyReason": "pregnancy",
-  "timestamp": "ISODate"
-}
-```
-
-#### Feedback Schema
-
-```json
-{
-  "queryId": "ObjectId",
-  "rating": "up | down",
-  "timestamp": "ISODate"
-}
-```
+> “Your question touches on an area that may be risky without personalized guidance.
+> Consider gentle yoga practices and consult a certified professional.”
 
 ---
 
@@ -181,10 +154,10 @@ Every query is logged for analysis.
 ```json
 {
   "answer": "...",
-  "sources": ["Article 7", "Article 12"],
+  "sources": ["Article 1", "Article 6"],
   "isUnsafe": true,
-  "warning": "Your question involves pregnancy-related considerations.",
-  "queryId": "abc123"
+  "warning": "Your question involves a condition that may require professional guidance.",
+  "queryId": "demo-query-id"
 }
 ```
 
@@ -192,10 +165,47 @@ Every query is logged for analysis.
 
 ### POST `/feedback`
 
+**Request**
+
 ```json
 {
-  "queryId": "abc123",
+  "queryId": "demo-query-id",
   "rating": "up"
+}
+```
+
+---
+
+## 🗃️ MongoDB Data Model
+
+The backend is structured to support MongoDB-based persistence of:
+
+* User queries
+* Retrieved knowledge chunks
+* Safety flags
+* Generated answers
+* User feedback
+
+### Query Log Schema
+
+```json
+{
+  "query": "User question",
+  "retrievedChunks": ["Chunk 1", "Chunk 2"],
+  "answer": "Generated response",
+  "isUnsafe": true,
+  "safetyReason": "pregnancy",
+  "timestamp": "ISODate"
+}
+```
+
+### Feedback Schema
+
+```json
+{
+  "queryId": "ObjectId",
+  "rating": "up | down",
+  "timestamp": "ISODate"
 }
 ```
 
@@ -205,22 +215,11 @@ Every query is logged for analysis.
 
 ### Prerequisites
 
-* Node.js
-* MongoDB (local)
-* Ollama installed
+* Node.js (v16+)
+* npm
 * Git
 
-### Environment Variables
-
-Create `.env` from `.env.example`:
-
-```
-MONGO_URI=mongodb://localhost:27017/yoga_rag
-```
-
----
-
-## ▶️ How to Run 
+### How to Run
 
 ```bash
 # Backend
@@ -234,24 +233,36 @@ npm install
 npm start
 ```
 
+The application runs at:
+
+```
+http://localhost:3000
+```
+
 ---
 
 ## 🧠 Design Decisions
 
-* **FAISS** chosen for fast local vector search
-* **Sentence Transformers** for lightweight embeddings
-* **Ollama** for free, local LLM inference
-* **Keyword-based safety filter** for clarity and reliability
-* **Explicit RAG pipeline** to ensure transparency and debuggability
+* Explicit RAG structure for transparency and debuggability
+* Safety-first response handling for sensitive yoga queries
+* Lightweight retrieval layer for clarity and extensibility
+* Minimal UI to prioritize correctness and user understanding
 
 ---
 
 ## 📹 Demo & Submission Notes
 
-* Demo video (2–5 minutes) will showcase:
+The demo showcases:
 
-  * Query flow
-  * Safety detection
-  * Source grounding
-  * MongoDB logs
+* User query to answer flow
+* Safety detection and warning display
+* Source-grounded responses
+* Clean API interactions between frontend and backend
+
+---
+
+## 🏁 Final Notes
+
+This project emphasizes **responsible AI design**, **clear RAG architecture**, and **user safety**.
+The system is structured to be easily extensible with full vector-based retrieval and persistent analytics while maintaining clean separation of concerns.
 
