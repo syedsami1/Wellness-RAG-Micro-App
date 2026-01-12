@@ -1,12 +1,102 @@
 [
   {
     "id": "1",
-    "title": "Benefits of Yoga",
-    "content": "Yoga improves flexibility, balance, and mental clarity."
+    "title": "Introduction to Yoga",
+    "content": "Yoga is a holistic practice originating in ancient India that combines physical postures, breathing techniques, and mindfulness to promote overall well-being."
   },
   {
     "id": "2",
-    "title": "Yoga Safety",
-    "content": "People with medical conditions should practice yoga under supervision."
+    "title": "Benefits of Yoga",
+    "content": "Regular yoga practice can improve flexibility, balance, strength, posture, and mental clarity. It may also help reduce stress and improve sleep quality."
+  },
+  {
+    "id": "3",
+    "title": "Yoga for Beginners",
+    "content": "Beginners should start with simple poses, focus on proper alignment, and move slowly while coordinating movement with breath."
+  },
+  {
+    "id": "4",
+    "title": "Advanced Yoga Practices",
+    "content": "Advanced yoga includes complex poses that require strength, balance, and flexibility, and should be practiced with guidance."
+  },
+  {
+    "id": "5",
+    "title": "Common Standing Poses",
+    "content": "Standing poses such as Mountain Pose and Warrior Pose help improve balance, posture, and leg strength."
+  },
+  {
+    "id": "6",
+    "title": "Seated Yoga Poses",
+    "content": "Seated poses are commonly used for stretching the hips and spine and for meditation and breathing practices."
+  },
+  {
+    "id": "7",
+    "title": "Forward Bends in Yoga",
+    "content": "Forward bending poses stretch the back body and can promote relaxation when practiced gently."
+  },
+  {
+    "id": "8",
+    "title": "Backbends in Yoga",
+    "content": "Backbends strengthen the spine and open the chest, but should be approached carefully to avoid strain."
+  },
+  {
+    "id": "9",
+    "title": "Twisting Poses",
+    "content": "Twisting poses help improve spinal mobility and support digestion when practiced mindfully."
+  },
+  {
+    "id": "10",
+    "title": "Inversions in Yoga",
+    "content": "Inversions reverse the effects of gravity and can improve circulation, but they require proper technique and caution."
+  },
+  {
+    "id": "11",
+    "title": "Contraindications in Yoga",
+    "content": "Certain yoga poses may not be suitable for individuals with medical conditions such as hernia, glaucoma, or recent surgery."
+  },
+  {
+    "id": "12",
+    "title": "Yoga During Pregnancy",
+    "content": "Prenatal yoga emphasizes gentle movement, breathing, and relaxation while avoiding intense or inverted poses."
+  },
+  {
+    "id": "13",
+    "title": "Pranayama Basics",
+    "content": "Pranayama refers to breathing techniques that help regulate energy and calm the nervous system."
+  },
+  {
+    "id": "14",
+    "title": "Anulom Vilom Breathing",
+    "content": "Anulom Vilom is a gentle breathing practice that promotes relaxation and balance."
+  },
+  {
+    "id": "15",
+    "title": "Kapalbhati Breathing",
+    "content": "Kapalbhati is an active breathing technique that should be practiced cautiously and under guidance."
+  },
+  {
+    "id": "16",
+    "title": "Yoga for Stress Relief",
+    "content": "Slow movements, gentle stretching, and mindful breathing in yoga can help reduce stress."
+  },
+  {
+    "id": "17",
+    "title": "Yoga for Flexibility",
+    "content": "Consistent yoga practice improves muscle elasticity and joint mobility over time."
+  },
+  {
+    "id": "18",
+    "title": "Yoga for Balance",
+    "content": "Balancing poses enhance coordination and strengthen stabilizing muscles."
+  },
+  {
+    "id": "19",
+    "title": "Restorative Yoga",
+    "content": "Restorative yoga uses supported poses to promote deep relaxation and recovery."
+  },
+  {
+    "id": "20",
+    "title": "Yoga Safety Guidelines",
+    "content": "Practicing within personal limits, avoiding pain, and seeking qualified instruction are key to safe yoga practice."
   }
 ]
