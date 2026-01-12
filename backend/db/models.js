@@ -1,2 +1,5 @@
-export const QueryLog = {};
-export const Feedback = {};
+export const QueryLog = {
+  async create(data) {
+    console.log("QueryLog:", data);
+  }
+};
